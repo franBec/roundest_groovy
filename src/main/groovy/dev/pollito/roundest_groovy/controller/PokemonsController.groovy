@@ -4,11 +4,22 @@ import dev.pollito.roundest_groovy.api.PokemonsApi
 import dev.pollito.roundest_groovy.model.PokemonSortProperty
 import dev.pollito.roundest_groovy.model.Pokemons
 import dev.pollito.roundest_groovy.model.SortDirection
+import dev.pollito.roundest_groovy.service.PokemonService
+import org.springframework.data.domain.PageRequest
+import org.springframework.data.domain.Sort
+import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
 class PokemonsController implements PokemonsApi {
+
+    private final PokemonService pokemonService
+
+    PokemonsController(PokemonService pokemonService) {
+        this.pokemonService = pokemonService
+    }
+
     @Override
     ResponseEntity<Pokemons> findAll(
             Integer pageNumber,
@@ -17,11 +28,21 @@ class PokemonsController implements PokemonsApi {
             SortDirection sortDirection,
             Boolean random
     ) {
-        super.findAll(pageNumber, pageSize, sortProperty, sortDirection, random)
+        ResponseEntity.ok(
+                pokemonService.findAll(
+                        PageRequest.of(
+                                pageNumber,
+                                pageSize,
+                                Sort.Direction.fromString(sortDirection.value),
+                                sortProperty.value
+                        ),
+                        random
+                )
+        )
     }
 
     @Override
     ResponseEntity<Void> incrementPokemonVotes(Long id) {
-        return super.incrementPokemonVotes(id)
+        new ResponseEntity<>(pokemonService.incrementPokemonVotes(id), HttpStatus.NO_CONTENT)
     }
 }
