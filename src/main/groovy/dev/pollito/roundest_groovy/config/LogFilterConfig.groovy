@@ -1,6 +1,6 @@
 package dev.pollito.roundest_groovy.config
 
-import dev.pollito.roundest_groovy.filer.LogFilter
+import dev.pollito.roundest_groovy.filter.LogFilter
 import org.springframework.boot.web.servlet.FilterRegistrationBean
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration

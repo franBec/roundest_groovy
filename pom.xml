@@ -83,6 +83,20 @@
 			<artifactId>micrometer-tracing-bridge-otel</artifactId>
 			<version>1.4.0</version>
 		</dependency>
+		<dependency>
+			<groupId>io.swagger.core.v3</groupId>
+			<artifactId>swagger-core-jakarta</artifactId>
+			<version>2.2.26</version>
+		</dependency>
+		<dependency>
+			<groupId>org.openapitools</groupId>
+			<artifactId>jackson-databind-nullable</artifactId>
+			<version>0.2.6</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-validation</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -140,6 +154,32 @@
 						<param>${project.groupId}.${project.artifactId}.*</param>
 					</targetTests>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.openapitools</groupId>
+				<artifactId>openapi-generator-maven-plugin</artifactId>
+				<version>7.10.0</version>
+				<executions>
+					<execution>
+						<id>spring (server) generation - roundest.yaml</id>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<configuration>
+							<inputSpec>${project.basedir}/src/main/resources/openapi/roundest.yaml</inputSpec>
+							<generatorName>spring</generatorName>
+							<output>${project.build.directory}/generated-sources/openapi/</output>
+							<apiPackage>${project.groupId}.${project.artifactId}.api</apiPackage>
+							<modelPackage>${project.groupId}.${project.artifactId}.model</modelPackage>
+							<configOptions>
+								<interfaceOnly>true</interfaceOnly>
+								<skipOperationExample>true</skipOperationExample>
+								<useSpringBoot3>true</useSpringBoot3>
+								<useEnumCaseInsensitive>true</useEnumCaseInsensitive>
+							</configOptions>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>

@@ -1,4 +1,4 @@
-package dev.pollito.roundest_groovy.filer
+package dev.pollito.roundest_groovy.filter
 
 import groovy.util.logging.Slf4j
 import jakarta.servlet.Filter
@@ -25,10 +25,12 @@ class LogFilter implements Filter {
     }
 
     private String headersToString(HttpServletRequest request) {
-        request.headerNames.collect { headerName ->
+        def headers = request.headerNames.collect { headerName ->
             "${headerName}: ${request.getHeader(headerName)}"
-        }.join(', ', '{', '}')
+        }
+        "{${headers.join(', ')}}"
     }
+
 
     private void logResponseDetails(HttpServletResponse response) {
         log.info("<<<< Response Status: ${response.status}")
