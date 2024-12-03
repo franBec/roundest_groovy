@@ -1,7 +1,7 @@
 # roundest_groovy
 
 ## Project Overview
-This project is implemented in **Groovy Spring Boot 3** and provides a RESTful API for "The roundest Pokémon" type exercise.  It is part of a group of repositories that all aim to solve the same exercise using different backend languages.
+This project is implemented in **Groovy Spring Boot 3** and provides a RESTful API for "The roundest Pokémon" type exercise. It is part of a group of repositories that all aim to solve the same exercise using different backend languages.
 
 - roundest_groovy (this one)
 - [roundest_java](https://github.com/franBec/roundest_java)
