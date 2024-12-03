@@ -1,7 +1,7 @@
 # roundest_groovy
 
 ## Project Overview
-This project is implemented in **Groovy Spring Boot 3** and provides a RESTful API for "The roundest Pokémon" type exercise.
+This project is implemented in **Java Spring Boot 3** and provides a RESTful API for "The roundest Pokémon" type exercise.
 
 ## API Documentation
 The OpenAPI documentation for the API can be found in the [src/main/resources/openapi/roundest.yaml file](https://github.com/franBec/roundest_groovy/blob/main/src/main/resources/openapi/roundest.yaml).
@@ -9,13 +9,13 @@ The OpenAPI documentation for the API can be found in the [src/main/resources/op
 ## Getting Started
 
 ### Prerequisites
-- For running with Maven:
+- For running with Gradle:
     - **Java 21**
-    - **Maven**
+    - **Gradle**
 - For containerized deployment
     - **Docker**
 
-### Run with Maven
+### Run with Gradle
 1. Clone the repository:
     ```bash
     git clone https://github.com/franBec/roundest_groovy
@@ -24,10 +24,11 @@ The OpenAPI documentation for the API can be found in the [src/main/resources/op
     ```bash
     cd roundest_groovy
     ```
-3. Build and run the application using Maven:
+3. Build and run the application using Gradle:
     ```bash
-    mvn spring-boot:run
+    ./gradlew bootRun
     ```
+
 ### Run with Docker
 1. Clone the repository:
      ```bash
