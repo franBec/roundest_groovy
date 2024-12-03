@@ -5,7 +5,7 @@ This project is implemented in **Groovy Spring Boot 3** and provides a RESTful A
 
 - roundest_groovy (this one)
 - [roundest_java](https://github.com/franBec/roundest_java)
-- [roudest_kotlin](https://github.com/franBec/roundest_kotlin)
+- [roundest_kotlin](https://github.com/franBec/roundest_kotlin)
 
 ## API Documentation
 The OpenAPI documentation for the API can be found in the [src/main/resources/openapi/roundest.yaml file](https://github.com/franBec/roundest_groovy/blob/main/src/main/resources/openapi/roundest.yaml).
