@@ -53,19 +53,17 @@ dependencies {
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
-/*tasks.withType(JavaCompile).configureEach {
-    options.compilerArgs = [
-            '-Amapstruct.suppressGeneratorTimestamp=true'
-    ]
-}*/
-
 tasks.named('compileJava') {
     dependsOn 'openApiGenerate'
     options.annotationProcessorPath = configurations.annotationProcessor
 }
 
+tasks.named('compileGroovy'){
+    groovyOptions.javaAnnotationProcessing = true
+}
+
 tasks.named('test') {
-//    dependsOn 'pitest'
+    dependsOn 'pitest'
     useJUnitPlatform()
 }
 
