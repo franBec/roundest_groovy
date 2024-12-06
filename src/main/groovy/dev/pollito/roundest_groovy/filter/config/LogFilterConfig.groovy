@@ -1,4 +1,4 @@
-package dev.pollito.roundest_groovy.config
+package dev.pollito.roundest_groovy.filter.config
 
 import dev.pollito.roundest_groovy.filter.LogFilter
 import org.springframework.boot.web.servlet.FilterRegistrationBean
