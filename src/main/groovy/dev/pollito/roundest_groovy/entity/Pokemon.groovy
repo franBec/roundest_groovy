@@ -19,6 +19,9 @@ class Pokemon implements Serializable {
     @Column(name = "name", nullable = false, length = 10, updatable = false, unique = true)
     String name
 
+    @Column(name = "sprite_url", nullable = false, updatable = false, unique = true)
+    String spriteUrl
+
     @Column(name = "votes", nullable = false)
     int votes = 0
 }
