@@ -1,12 +1,14 @@
 package dev.pollito.roundest_groovy.service.impl
 
 import dev.pollito.roundest_groovy.mapper.PokemonModelMapper
+import dev.pollito.roundest_groovy.model.Pokemon
 import dev.pollito.roundest_groovy.model.Pokemons
 import dev.pollito.roundest_groovy.repository.PokemonRepository
 import dev.pollito.roundest_groovy.service.PokemonService
 import org.springframework.data.domain.PageImpl
 import org.springframework.data.domain.PageRequest
 import org.springframework.stereotype.Service
+import org.springframework.util.StringUtils
 
 @Service
 class PokemonServiceImpl implements PokemonService {
@@ -23,11 +25,27 @@ class PokemonServiceImpl implements PokemonService {
     }
 
     @Override
-    Pokemons findAll(PageRequest pageRequest, Boolean random) {
-        if (random == true) {
+    Pokemons findAll(String name, PageRequest pageRequest, Boolean random) {
+        if (random) {
             return getRandomPokemons(pageRequest.pageSize)
         }
+        if (StringUtils.hasText(name)) {
+            return pokemonModelMapper.map(pokemonRepository.findByNameContainingIgnoreCase(name, pageRequest))
+        }
         pokemonModelMapper.map(pokemonRepository.findAll(pageRequest))
+    }
+
+    @Override
+    Pokemon findById(Long id) {
+        pokemonModelMapper.map(pokemonRepository.findById(id).orElseThrow())
+    }
+
+    @Override
+    Void incrementPokemonVotes(Long id) {
+        def pokemon = pokemonRepository.findById(id).orElseThrow()
+        pokemon.votes += 1
+        pokemonRepository.save pokemon
+        return null
     }
 
     private Pokemons getRandomPokemons(int size) {
@@ -35,14 +53,6 @@ class PokemonServiceImpl implements PokemonService {
         pokemonModelMapper.map(
                 new PageImpl<>(pokemons, PageRequest.of(0, size), pokemons.size())
         )
-    }
-
-    @Override
-    Void incrementPokemonVotes(Long id) {
-        def pokemon = pokemonRepository.findById(id).orElseThrow()
-        pokemon.votes += 1
-        pokemonRepository.save(pokemon)
-        return null
     }
 
     private static List<Long> generateRandomIds(int count) {

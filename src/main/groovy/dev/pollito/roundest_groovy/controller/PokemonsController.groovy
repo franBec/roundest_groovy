@@ -1,6 +1,7 @@
 package dev.pollito.roundest_groovy.controller
 
 import dev.pollito.roundest_groovy.api.PokemonsApi
+import dev.pollito.roundest_groovy.model.Pokemon
 import dev.pollito.roundest_groovy.model.PokemonSortProperty
 import dev.pollito.roundest_groovy.model.Pokemons
 import dev.pollito.roundest_groovy.model.SortDirection
@@ -22,6 +23,7 @@ class PokemonsController implements PokemonsApi {
 
     @Override
     ResponseEntity<Pokemons> findAll(
+            String name,
             Integer pageNumber,
             Integer pageSize,
             PokemonSortProperty sortProperty,
@@ -30,6 +32,7 @@ class PokemonsController implements PokemonsApi {
     ) {
         ResponseEntity.ok(
                 pokemonService.findAll(
+                        name,
                         PageRequest.of(
                                 pageNumber,
                                 pageSize,
@@ -39,6 +42,11 @@ class PokemonsController implements PokemonsApi {
                         random
                 )
         )
+    }
+
+    @Override
+    ResponseEntity<Pokemon> findById(Long id) {
+        ResponseEntity.ok pokemonService.findById(id)
     }
 
     @Override

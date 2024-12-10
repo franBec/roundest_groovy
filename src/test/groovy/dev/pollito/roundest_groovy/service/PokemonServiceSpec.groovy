@@ -19,20 +19,25 @@ class PokemonServiceSpec extends Specification {
         pokemonService = new PokemonServiceImpl(pokemonRepository, pokemonModelMapper)
     }
 
-    def "when findAll not random then return pokemons"() {
-        given: "a mocked repository returning an empty page"
-        pokemonRepository.findAll(_ as PageRequest) >>
-                new PageImpl<>([], PageRequest.of(0, 10), 0)
+    def "when findAll then return pokemons"() {
+        given: "a mocked repository returning a page"
+        pokemonRepository
+                .findAll(_ as PageRequest)
+                >> new PageImpl<>([], PageRequest.of(0, 10), 0)
 
-        when: "calling findAll with random set to false"
-        def result = pokemonService.findAll(Mock(PageRequest), false)
+        when: "calling findAll with no name and random false"
+        def result = pokemonService.findAll(
+                null,
+                Mock(PageRequest),
+                false
+        )
 
         then: "result is not null"
         result != null
     }
 
     def "when findAll random then return pokemons"() {
-        given: "a mocked repository returning an empty list for random ids"
+        given: "a mocked repository returning a list for random ids"
         pokemonRepository.findByIds(_ as List) >> []
 
         and: "a mocked PageRequest"
@@ -41,7 +46,28 @@ class PokemonServiceSpec extends Specification {
         }
 
         when: "calling findAll with random set to true"
-        def result = pokemonService.findAll(pageRequest, true)
+        def result = pokemonService.findAll(
+                null,
+                pageRequest,
+                true
+        )
+
+        then: "result is not null"
+        result != null
+    }
+
+    def "when findAll with name then return pokemons"(){
+        given: "a mocked repository returning a page"
+        pokemonRepository
+                .findByNameContainingIgnoreCase(_ as String, _ as PageRequest)
+                >> new PageImpl<>([], PageRequest.of(0, 10), 0)
+
+        when: "calling findAll with a name"
+        def result = pokemonService.findAll(
+                "abra",
+                Mock(PageRequest),
+                false
+        )
 
         then: "result is not null"
         result != null
