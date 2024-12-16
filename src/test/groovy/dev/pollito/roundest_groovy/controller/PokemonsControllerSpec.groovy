@@ -2,8 +2,6 @@ package dev.pollito.roundest_groovy.controller
 
 import dev.pollito.roundest_groovy.model.Pokemon
 import dev.pollito.roundest_groovy.model.Pokemons
-import dev.pollito.roundest_groovy.model.PokemonSortProperty
-import dev.pollito.roundest_groovy.model.SortDirection
 import dev.pollito.roundest_groovy.service.PokemonService
 import org.springframework.data.domain.PageRequest
 import org.springframework.http.HttpStatus
@@ -21,7 +19,9 @@ class PokemonsControllerSpec extends Specification {
         given: "a mocked service interaction"
         pokemonService.findAll(
                 _ as String,
-                _ as PageRequest,
+                _ as Integer,
+                _ as Integer,
+                _ as List<String>,
                 _ as Boolean
         ) >> Mock(Pokemons)
 
@@ -30,8 +30,7 @@ class PokemonsControllerSpec extends Specification {
                 "Bulbasur",
                 0,
                 10,
-                PokemonSortProperty.ID,
-                SortDirection.ASC,
+                Collections.emptyList(),
                 true
         )
 

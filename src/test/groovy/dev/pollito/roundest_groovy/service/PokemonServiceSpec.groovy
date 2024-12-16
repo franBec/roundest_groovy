@@ -28,7 +28,9 @@ class PokemonServiceSpec extends Specification {
         when: "calling findAll with no name and random false"
         def result = pokemonService.findAll(
                 null,
-                Mock(PageRequest),
+                0,
+                10,
+                Collections.emptyList(),
                 false
         )
 
@@ -40,15 +42,12 @@ class PokemonServiceSpec extends Specification {
         given: "a mocked repository returning a list for random ids"
         pokemonRepository.findByIds(_ as List) >> []
 
-        and: "a mocked PageRequest"
-        def pageRequest = Mock(PageRequest) {
-            getPageSize() >> 2
-        }
-
         when: "calling findAll with random set to true"
         def result = pokemonService.findAll(
                 null,
-                pageRequest,
+                0,
+                2,
+                Collections.emptyList(),
                 true
         )
 
@@ -65,9 +64,22 @@ class PokemonServiceSpec extends Specification {
         when: "calling findAll with a name"
         def result = pokemonService.findAll(
                 "abra",
-                Mock(PageRequest),
+                0,
+                10,
+                Collections.emptyList(),
                 false
         )
+
+        then: "result is not null"
+        result != null
+    }
+
+    def "when findById then return Pokemon"(){
+        given: "a mocked repository behaviour"
+        pokemonRepository.findById(_ as Long) >> Optional.of(new Pokemon())
+
+        when: "finding a pokemon"
+        def result = pokemonService.findById(1L)
 
         then: "result is not null"
         result != null
