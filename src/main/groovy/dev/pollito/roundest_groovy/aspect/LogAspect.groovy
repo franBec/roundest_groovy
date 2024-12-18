@@ -13,22 +13,22 @@ import org.springframework.stereotype.Component
 @Slf4j
 class LogAspect {
 
-    @Pointcut("execution(public * dev.pollito.roundest_groovy.controller..*.*(..))")
-    void controllerPublicMethodsPointcut() {
-        // Pointcut for public methods in controller package
-    }
+	@Pointcut("execution(public * dev.pollito.roundest_groovy.controller..*.*(..))")
+	void controllerPublicMethodsPointcut() {
+		// Pointcut for public methods in controller package
+	}
 
-    @Before("controllerPublicMethodsPointcut()")
-    void logBefore(JoinPoint joinPoint) {
-        log.info(
-                "[${joinPoint.signature.toShortString()}] Args: ${joinPoint.args}"
-        )
-    }
+	@Before("controllerPublicMethodsPointcut()")
+	void logBefore(JoinPoint joinPoint) {
+		log.info(
+				"[${joinPoint.signature.toShortString()}] Args: ${joinPoint.args}"
+				)
+	}
 
-    @AfterReturning(pointcut = "controllerPublicMethodsPointcut()", returning = "result")
-    void logAfterReturning(JoinPoint joinPoint, Object result) {
-        log.info(
-                "[${joinPoint.signature.toShortString()}] Response: ${result}"
-        )
-    }
+	@AfterReturning(pointcut = "controllerPublicMethodsPointcut()", returning = "result")
+	void logAfterReturning(JoinPoint joinPoint, Object result) {
+		log.info(
+				"[${joinPoint.signature.toShortString()}] Response: ${result}"
+				)
+	}
 }

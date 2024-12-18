@@ -8,11 +8,11 @@ import org.springframework.context.annotation.Configuration
 @Configuration
 class LogFilterConfiguration {
 
-    @Bean
-    FilterRegistrationBean<LogFilter> loggingFilter() {
-        def registrationBean = new FilterRegistrationBean<LogFilter>()
-        registrationBean.filter = new LogFilter()
-        registrationBean.addUrlPatterns("/*")
-        return registrationBean
-    }
+	@Bean
+	FilterRegistrationBean<LogFilter> loggingFilter() {
+		def registrationBean = new FilterRegistrationBean<LogFilter>()
+		registrationBean.filter = new LogFilter()
+		registrationBean.addUrlPatterns("/*")
+		return registrationBean
+	}
 }

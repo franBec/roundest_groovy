@@ -11,38 +11,38 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 class PokemonsController implements PokemonsApi {
 
-    private final PokemonService pokemonService
+	private final PokemonService pokemonService
 
-    PokemonsController(PokemonService pokemonService) {
-        this.pokemonService = pokemonService
-    }
+	PokemonsController(PokemonService pokemonService) {
+		this.pokemonService = pokemonService
+	}
 
-    @Override
-    ResponseEntity<Pokemons> findAll(
-            String name,
-            Integer pageNumber,
-            Integer pageSize,
-            List<String> pageSort,
-            Boolean random
-    ) {
-        ResponseEntity.ok(
-                pokemonService.findAll(
-                        name,
-                        pageNumber,
-                        pageSize,
-                        pageSort,
-                        random
-                )
-        )
-    }
+	@Override
+	ResponseEntity<Pokemons> findAll(
+			String name,
+			Integer pageNumber,
+			Integer pageSize,
+			List<String> pageSort,
+			Boolean random
+	) {
+		ResponseEntity.ok(
+				pokemonService.findAll(
+				name,
+				pageNumber,
+				pageSize,
+				pageSort,
+				random
+				)
+				)
+	}
 
-    @Override
-    ResponseEntity<Pokemon> findById(Long id) {
-        ResponseEntity.ok pokemonService.findById(id)
-    }
+	@Override
+	ResponseEntity<Pokemon> findById(Long id) {
+		ResponseEntity.ok pokemonService.findById(id)
+	}
 
-    @Override
-    ResponseEntity<Void> incrementPokemonVotes(Long id) {
-        new ResponseEntity<>(pokemonService.incrementPokemonVotes(id), HttpStatus.NO_CONTENT)
-    }
+	@Override
+	ResponseEntity<Void> incrementPokemonVotes(Long id) {
+		new ResponseEntity<>(pokemonService.incrementPokemonVotes(id), HttpStatus.NO_CONTENT)
+	}
 }

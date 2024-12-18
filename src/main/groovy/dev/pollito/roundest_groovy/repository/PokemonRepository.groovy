@@ -9,8 +9,8 @@ import org.springframework.data.repository.query.Param
 
 interface PokemonRepository extends JpaRepository<Pokemon, Long> {
 
-    @Query("SELECT p FROM Pokemon p WHERE p.id IN :ids")
-    List<Pokemon> findByIds(@Param("ids") List<Long> ids)
+	@Query("SELECT p FROM Pokemon p WHERE p.id IN :ids")
+	List<Pokemon> findByIds(@Param("ids") List<Long> ids)
 
-    Page<Pokemon> findByNameContainingIgnoreCase(String name, Pageable pageable)
+	Page<Pokemon> findByNameContainingIgnoreCase(String name, Pageable pageable)
 }

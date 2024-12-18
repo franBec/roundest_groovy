@@ -8,61 +8,61 @@ import org.springframework.http.HttpStatus
 import spock.lang.Specification
 
 class PokemonsControllerSpec extends Specification {
-    PokemonsController pokemonsController
-    PokemonService pokemonService = Mock()
+	PokemonsController pokemonsController
+	PokemonService pokemonService = Mock()
 
-    def setup() {
-        pokemonsController = new PokemonsController(pokemonService)
-    }
+	def setup() {
+		pokemonsController = new PokemonsController(pokemonService)
+	}
 
-    def "when findAll then return OK"() {
-        given: "a mocked service interaction"
-        pokemonService.findAll(
-                _ as String,
-                _ as Integer,
-                _ as Integer,
-                _ as List<String>,
-                _ as Boolean
-        ) >> Mock(Pokemons)
+	def "when findAll then return OK"() {
+		given: "a mocked service interaction"
+		pokemonService.findAll(
+				_ as String,
+				_ as Integer,
+				_ as Integer,
+				_ as List<String>,
+				_ as Boolean
+				) >> Mock(Pokemons)
 
-        when: "calling findAll on the controller"
-        def response = pokemonsController.findAll(
-                "Bulbasur",
-                0,
-                10,
-                Collections.emptyList(),
-                true
-        )
+		when: "calling findAll on the controller"
+		def response = pokemonsController.findAll(
+				"Bulbasur",
+				0,
+				10,
+				Collections.emptyList(),
+				true
+				)
 
-        then: "the response status is OK and the body is not null"
-        response.statusCode == HttpStatus.OK
-        response.body != null
-    }
+		then: "the response status is OK and the body is not null"
+		response.statusCode == HttpStatus.OK
+		response.body != null
+	}
 
-    def "when findById then return OK"(){
-        given: "a mocked service interaction"
-        pokemonService.findById(_ as Long) >> Mock(Pokemon)
+	def "when findById then return OK"(){
+		given: "a mocked service interaction"
+		pokemonService.findById(_ as Long) >> Mock(Pokemon)
 
-        when: "calling findById on the controller"
-        def response = pokemonsController.findById(1L)
+		when: "calling findById on the controller"
+		def response = pokemonsController.findById(1L)
 
-        then: "the response status is OK and the body is not null"
-        response.statusCode == HttpStatus.OK
-        response.body != null
-    }
+		then: "the response status is OK and the body is not null"
+		response.statusCode == HttpStatus.OK
+		response.body != null
+	}
 
-    def "when incrementPokemonVotes then return NO_CONTENT"() {
-        given: "a mocked service interaction"
-        pokemonService.incrementPokemonVotes(_ as Long) >> { /* do nothing */ }
+	def "when incrementPokemonVotes then return NO_CONTENT"() {
+		given: "a mocked service interaction"
+		pokemonService.incrementPokemonVotes(_ as Long) >> { /* do nothing */ }
 
-        when: "calling incrementPokemonVotes on the controller"
-        def response = pokemonsController.incrementPokemonVotes(1L)
+		when: "calling incrementPokemonVotes on the controller"
+		def response = pokemonsController.incrementPokemonVotes(1L)
 
-        then: "the response status is NO_CONTENT and the body is null"
-        response.statusCode == HttpStatus.NO_CONTENT
-        response.body == null
+		then: "the response status is NO_CONTENT and the body is null"
+		response.statusCode == HttpStatus.NO_CONTENT
+		response.body == null
 
-        and: "the service interaction is verified"
-        1 * pokemonService.incrementPokemonVotes(_ as Long)
-    }
+		and: "the service interaction is verified"
+		1 * pokemonService.incrementPokemonVotes(_ as Long)
+	}
 }

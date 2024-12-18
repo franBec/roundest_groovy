@@ -14,55 +14,55 @@ import org.springframework.util.StringUtils
 
 @Service
 class PokemonServiceImpl implements PokemonService {
-    private final PokemonRepository pokemonRepository
-    private final PokemonModelMapper pokemonModelMapper
+	private final PokemonRepository pokemonRepository
+	private final PokemonModelMapper pokemonModelMapper
 
-    PokemonServiceImpl(PokemonRepository pokemonRepository, PokemonModelMapper pokemonModelMapper) {
-        this.pokemonRepository = pokemonRepository
-        this.pokemonModelMapper = pokemonModelMapper
-    }
+	PokemonServiceImpl(PokemonRepository pokemonRepository, PokemonModelMapper pokemonModelMapper) {
+		this.pokemonRepository = pokemonRepository
+		this.pokemonModelMapper = pokemonModelMapper
+	}
 
-    @Override
-    Pokemons findAll(
-            String name,
-            Integer pageNumber,
-            Integer pageSize,
-            List<String> pageSort,
-            Boolean random
-    ) {
-        if (random) {
-            return getRandomPokemons(pageSize)
-        }
+	@Override
+	Pokemons findAll(
+			String name,
+			Integer pageNumber,
+			Integer pageSize,
+			List<String> pageSort,
+			Boolean random
+	) {
+		if (random) {
+			return getRandomPokemons(pageSize)
+		}
 
-        def pageable = PageableUtils.createPageable(
-                pageNumber,
-                pageSize,
-                pageSort
-        )
+		def pageable = PageableUtils.createPageable(
+				pageNumber,
+				pageSize,
+				pageSort
+				)
 
-        if (StringUtils.hasText(name)) {
-            return pokemonModelMapper.map(pokemonRepository.findByNameContainingIgnoreCase(name, pageable))
-        }
-        pokemonModelMapper.map(pokemonRepository.findAll(pageable))
-    }
+		if (StringUtils.hasText(name)) {
+			return pokemonModelMapper.map(pokemonRepository.findByNameContainingIgnoreCase(name, pageable))
+		}
+		pokemonModelMapper.map(pokemonRepository.findAll(pageable))
+	}
 
-    @Override
-    Pokemon findById(Long id) {
-        pokemonModelMapper.map(pokemonRepository.findById(id).orElseThrow())
-    }
+	@Override
+	Pokemon findById(Long id) {
+		pokemonModelMapper.map(pokemonRepository.findById(id).orElseThrow())
+	}
 
-    @Override
-    Void incrementPokemonVotes(Long id) {
-        def pokemon = pokemonRepository.findById(id).orElseThrow()
-        pokemon.votes += 1
-        pokemonRepository.save pokemon
-        return null
-    }
+	@Override
+	Void incrementPokemonVotes(Long id) {
+		def pokemon = pokemonRepository.findById(id).orElseThrow()
+		pokemon.votes += 1
+		pokemonRepository.save pokemon
+		return null
+	}
 
-    private Pokemons getRandomPokemons(int size) {
-        def pokemons = pokemonRepository.findByIds(RandomUtils.generateRandomIds(size))
-        pokemonModelMapper.map(
-                new PageImpl<>(pokemons, PageRequest.of(0, size), pokemons.size())
-        )
-    }
+	private Pokemons getRandomPokemons(int size) {
+		def pokemons = pokemonRepository.findByIds(RandomUtils.generateRandomIds(size))
+		pokemonModelMapper.map(
+				new PageImpl<>(pokemons, PageRequest.of(0, size), pokemons.size())
+				)
+	}
 }

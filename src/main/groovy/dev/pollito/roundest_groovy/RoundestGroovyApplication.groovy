@@ -9,5 +9,4 @@ class RoundestGroovyApplication {
 	static void main(String[] args) {
 		SpringApplication.run(RoundestGroovyApplication, args)
 	}
-
 }

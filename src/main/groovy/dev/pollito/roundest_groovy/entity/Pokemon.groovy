@@ -11,17 +11,17 @@ import jakarta.persistence.Table
 @Table(name = "pokemons", schema = "dbo")
 class Pokemon implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    Long id
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
+	Long id
 
-    @Column(name = "name", nullable = false, length = 10, updatable = false, unique = true)
-    String name
+	@Column(name = "name", nullable = false, length = 10, updatable = false, unique = true)
+	String name
 
-    @Column(name = "sprite_url", nullable = false, updatable = false, unique = true)
-    String spriteUrl
+	@Column(name = "sprite_url", nullable = false, updatable = false, unique = true)
+	String spriteUrl
 
-    @Column(name = "votes", nullable = false)
-    int votes = 0
+	@Column(name = "votes", nullable = false)
+	int votes = 0
 }

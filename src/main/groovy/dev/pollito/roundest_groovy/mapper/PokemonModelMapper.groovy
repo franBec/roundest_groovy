@@ -8,6 +8,6 @@ import org.springframework.data.domain.Page
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 interface PokemonModelMapper {
-    dev.pollito.roundest_groovy.model.Pokemon map(Pokemon pokemon)
-    Pokemons map(Page<Pokemon> pokemonPage)
+	dev.pollito.roundest_groovy.model.Pokemon map(Pokemon pokemon)
+	Pokemons map(Page<Pokemon> pokemonPage)
 }
