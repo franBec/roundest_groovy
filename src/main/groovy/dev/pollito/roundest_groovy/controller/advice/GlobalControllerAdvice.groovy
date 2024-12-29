@@ -19,7 +19,15 @@ class GlobalControllerAdvice {
 
 	private static ProblemDetail buildProblemDetail(Exception e, HttpStatus status) {
 		String exceptionSimpleName = e.class.simpleName
-		log.error("${exceptionSimpleName} being handled", e)
+		String logMessage = "${exceptionSimpleName} being handled"
+
+		if (status.is5xxServerError()) {
+			log.error(logMessage, e)
+		} else if (status.is4xxClientError()) {
+			log.warn(logMessage, e)
+		} else {
+			log.info(logMessage, e)
+		}
 
 		ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(status, e.localizedMessage)
 		problemDetail.title = exceptionSimpleName
