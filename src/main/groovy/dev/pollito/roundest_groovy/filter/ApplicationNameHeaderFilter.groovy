@@ -23,7 +23,7 @@ class ApplicationNameHeaderFilter implements Filter {
 	void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 	throws IOException, ServletException {
 		if (response instanceof HttpServletResponse) {
-			HttpServletResponse httpServletResponse = (HttpServletResponse) response
+			HttpServletResponse httpServletResponse = response as HttpServletResponse
 			httpServletResponse.addHeader("X-Application-Name", springApplicationConfigurationProperties.name)
 		}
 		chain.doFilter(request, response)

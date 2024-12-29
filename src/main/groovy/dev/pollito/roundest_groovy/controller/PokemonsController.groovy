@@ -38,7 +38,7 @@ class PokemonsController implements PokemonsApi {
 
 	@Override
 	ResponseEntity<Pokemon> findById(Long id) {
-		ResponseEntity.ok pokemonService.findById(id)
+		ResponseEntity.ok( pokemonService.findById(id))
 	}
 
 	@Override

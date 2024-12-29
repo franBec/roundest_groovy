@@ -29,6 +29,6 @@ class PageableUtils {
 			combinedSort = combinedSort & Sort.by(Sort.Direction.ASC, "id")
 		}
 
-		return PageRequest.of(page, size, combinedSort)
+		PageRequest.of(page, size, combinedSort)
 	}
 }

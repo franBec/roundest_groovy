@@ -22,21 +22,21 @@ class LogFilter implements Filter {
 		logResponseDetails(servletResponse as HttpServletResponse)
 	}
 
-	private void logRequestDetails(HttpServletRequest request) {
+	private static void logRequestDetails(HttpServletRequest request) {
 		log.info(
 				">>>> Method: ${request.method}; URI: ${request.requestURI}; QueryString: ${request.queryString}; Headers: ${headersToString(request)}"
 				)
 	}
 
-	private String headersToString(HttpServletRequest request) {
-		def headers = request.headerNames.collect { headerName ->
+	private static String headersToString(HttpServletRequest request) {
+		List<GString> headers = request.headerNames.collect { headerName ->
 			"${headerName}: ${request.getHeader(headerName)}"
 		}
 		"{${headers.join(', ')}}"
 	}
 
 
-	private void logResponseDetails(HttpServletResponse response) {
+	private static void logResponseDetails(HttpServletResponse response) {
 		log.info("<<<< Response Status: ${response.status}")
 	}
 }

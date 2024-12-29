@@ -55,7 +55,7 @@ class PokemonServiceImpl implements PokemonService {
 	Void incrementPokemonVotes(Long id) {
 		def pokemon = pokemonRepository.findById(id).orElseThrow()
 		pokemon.votes += 1
-		pokemonRepository.save pokemon
+		pokemonRepository.save(pokemon)
 		return null
 	}
 
