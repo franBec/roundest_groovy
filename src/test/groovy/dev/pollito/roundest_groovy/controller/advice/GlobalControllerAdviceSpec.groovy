@@ -1,5 +1,6 @@
 package dev.pollito.roundest_groovy.controller.advice
 
+import jakarta.validation.ConstraintViolationException
 import org.springframework.data.mapping.PropertyReferenceException
 import org.springframework.http.HttpStatus
 import org.springframework.http.ProblemDetail
@@ -18,6 +19,17 @@ class GlobalControllerAdviceSpec extends Specification {
 		assert response.properties?.get("trace") != null
 	}
 
+	def "when ConstraintViolationException then return ProblemDetail"() {
+		given: "a mocked ConstraintViolationException"
+		def e = Mock(ConstraintViolationException)
+
+		when: "handling the exception"
+		def response = globalControllerAdvice.handle(e)
+
+		then: "the response is a ProblemDetail with BAD_REQUEST status"
+		problemDetailAssertions(response, e, HttpStatus.BAD_REQUEST)
+	}
+
 	def "when Exception then return ProblemDetail"() {
 		given: "a mocked Exception"
 		def e = Mock(Exception)
@@ -27,17 +39,6 @@ class GlobalControllerAdviceSpec extends Specification {
 
 		then: "the response is a ProblemDetail with INTERNAL_SERVER_ERROR status"
 		problemDetailAssertions(response, e, HttpStatus.INTERNAL_SERVER_ERROR)
-	}
-
-	def "when IllegalArgumentException then return ProblemDetail"() {
-		given: "a mocked IllegalArgumentException"
-		def e = Mock(IllegalArgumentException)
-
-		when: "handling the exception"
-		def response = globalControllerAdvice.handle(e)
-
-		then: "the response is a ProblemDetail with BAD_REQUEST status"
-		problemDetailAssertions(response, e, HttpStatus.BAD_REQUEST)
 	}
 
 	def "when MethodArgumentTypeMismatchException then return ProblemDetail"() {

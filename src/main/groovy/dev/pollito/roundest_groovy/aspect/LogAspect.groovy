@@ -19,14 +19,14 @@ class LogAspect {
 	}
 
 	@Before("controllerPublicMethodsPointcut()")
-	void logBefore(JoinPoint joinPoint) {
+	static void logBefore(JoinPoint joinPoint) {
 		log.info(
 				"[${joinPoint.signature.toShortString()}] Args: ${joinPoint.args}"
 				)
 	}
 
 	@AfterReturning(pointcut = "controllerPublicMethodsPointcut()", returning = "result")
-	void logAfterReturning(JoinPoint joinPoint, Object result) {
+	static void logAfterReturning(JoinPoint joinPoint, Object result) {
 		log.info(
 				"[${joinPoint.signature.toShortString()}] Response: ${result}"
 				)

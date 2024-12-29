@@ -28,14 +28,14 @@ class GlobalControllerAdvice {
 		return problemDetail
 	}
 
+	@ExceptionHandler(ConstraintViolationException)
+	ProblemDetail handle(ConstraintViolationException e) {
+		buildProblemDetail(e, HttpStatus.BAD_REQUEST)
+	}
+
 	@ExceptionHandler(Exception)
 	ProblemDetail handle(Exception e) {
 		buildProblemDetail(e, HttpStatus.INTERNAL_SERVER_ERROR)
-	}
-
-	@ExceptionHandler(IllegalArgumentException)
-	ProblemDetail handle(IllegalArgumentException e) {
-		buildProblemDetail(e, HttpStatus.BAD_REQUEST)
 	}
 
 	@ExceptionHandler(MethodArgumentTypeMismatchException)
