@@ -8,7 +8,7 @@ import jakarta.persistence.Id
 import jakarta.persistence.Table
 
 @Entity
-@Table(name = "pokemons", schema = "dbo")
+@Table(name = "pokemons", schema = "public")
 class Pokemon implements Serializable {
 
 	@Id
