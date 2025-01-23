@@ -17,8 +17,8 @@ class CorsConfiguration implements WebMvcConfigurer{
 	void addCorsMappings(CorsRegistry registry) {
 		registry
 				.addMapping("/**")
-				.allowedOrigins(corsConfigurationProperties.allowedOrigins.toArray(new String[0]) as String)
-				.allowedMethods(corsConfigurationProperties.allowedMethods.toArray(new String[0]) as String)
+				.allowedOrigins(corsConfigurationProperties.allowedOrigins.toArray(new String[0]))
+				.allowedMethods(corsConfigurationProperties.allowedMethods.toArray(new String[0]))
 				.allowedHeaders(corsConfigurationProperties.allowedHeaders)
 				.allowCredentials(corsConfigurationProperties.allowCredentials)
 	}
