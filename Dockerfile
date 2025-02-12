@@ -6,5 +6,6 @@ RUN gradle build -x test --no-daemon
 
 # Run Stage
 FROM eclipse-temurin:21-jre-alpine
+RUN apk add --no-cache curl
 COPY --from=build /home/gradle/src/build/libs/*.jar app.jar
-ENTRYPOINT ["java","-jar","/app.jar"]
+ENTRYPOINT ["java", "-jar", "/app.jar"]
